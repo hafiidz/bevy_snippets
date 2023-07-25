@@ -1,0 +1,56 @@
+(
+  name: "MenuPlay",
+  schematics: {
+    "bevy_proto::custom::NodeBundle": (
+      style: (
+        flex_direction: Row,
+        justify_content: SpaceAround,
+        align_items: Center,
+        size: (
+          width: Auto,
+          height: Px(64.0),
+        ),
+      ),
+      background_color: (Rgba(
+        red: 0.5,
+        green: 0.15,
+        blue: 0.15,
+        alpha: 1.0
+      )),
+    )
+  },
+  children: [(
+        value: Inline((
+          name: "Play Text",
+          schematics: {
+            "bevy_proto::custom::TextBundle": (
+              style: (
+                margin: (
+                  left: Px(5.0),
+                  right: Px(5.0),
+                  top: Px(5.0),
+                  bottom: Px(5.0),
+                ),
+              size: (
+              width: Px(32.0),
+              height: Auto,
+            ),
+              ),
+              text: (
+                sections: [(
+                  // Label for HP
+                  value: "Play",
+                  style: (
+                    font: AssetPath("fonts/FiraSans-Bold.ttf"),
+                    font_size: 15.0,
+                    color: White,
+                  )
+                ),]
+              ),
+            ),
+          }
+        ))
+      ),
+      
+  ]
+)

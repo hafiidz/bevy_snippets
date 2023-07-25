@@ -1,0 +1,13 @@
+(
+  name: "MenuBottom",
+  schematics: {
+    "bevy_proto::custom::NodeBundle": (
+      style: (
+        size: (
+          width: Auto,
+          height: Auto,
+        ),
+      ),
+    )
+  },
+)
