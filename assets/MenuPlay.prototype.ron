@@ -19,40 +19,36 @@
         value: Inline((
           name: "Play Button",
           schematics: {
-            "bevy_proto::custom::ButtonBundle": (
-              style: (
-              ),
-              
-            ),
-            children: [(
-              value: Inline((
-                name: "Exit Text",
-                schematics: {
-                  "bevy_proto::custom::TextBundle": (
-                    style: (
-                      margin: (
-                        left: Px(5.0),
-                        right: Px(5.0),
-                        top: Px(5.0),
-                        bottom: Px(5.0),
-                      ),
-                    ),
-                    text: (
-                      sections: [(
-                        // Label for HP
-                        value: "Play",
-                        style: (
-                          font: AssetPath("fonts/FiraSans-Bold.ttf"),
-                          font_size: 15.0,
-                          color: White,
-                        )
-                      ),]
+            "bevy_proto::custom::ButtonBundle": (),
+          },
+          children: [(
+            value: Inline((
+              name: "Play Text",
+              schematics: {
+                "bevy_proto::custom::TextBundle": (
+                  style: (
+                    margin: (
+                      left: Px(5.0),
+                      right: Px(5.0),
+                      top: Px(5.0),
+                      bottom: Px(5.0),
                     ),
                   ),
-                }
-              ))
-            )]
-          }
+                  text: (
+                    sections: [(
+                      // Label for HP
+                      value: "Play",
+                      style: (
+                        font: AssetPath("fonts/FiraSans-Bold.ttf"),
+                        font_size: 15.0,
+                        color: Black,
+                      )
+                    ),]
+                  ),
+                ),
+              }
+            ))
+          )],
         ))
   ),]
 )
