@@ -6,10 +6,6 @@
         flex_direction: Row,
         justify_content: SpaceAround,
         align_items: Center,
-        size: (
-          width: Auto,
-          height: Px(64.0),
-        ),
       ),
       background_color: (Rgba(
         red: 0.5,
