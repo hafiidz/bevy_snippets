@@ -6,6 +6,8 @@
       style: (
         justify_content: SpaceBetween,
         flex_direction: Column,
+        width: Percent(100.),
+        height: Percent(100.)
       )
     )
   },

@@ -27,10 +27,6 @@
                   top: Px(5.0),
                   bottom: Px(5.0),
                 ),
-              size: (
-              width: Px(32.0),
-              height: Auto,
-            ),
               ),
               text: (
                 sections: [(
