@@ -6,10 +6,6 @@
         flex_direction: Row,
         justify_content: SpaceAround,
         align_items: Center,
-        size: (
-          width: Auto,
-          height: Px(64.0),
-        ),
       ),
       background_color: (Rgba(
         red: 0.5,
@@ -25,10 +21,6 @@
           schematics: {
             "bevy_proto::custom::ButtonBundle": (
               style: (
-                size: (
-                  width: Px(32.0),
-                  height: Auto,
-                ),
               ),
               
             ),
@@ -44,10 +36,6 @@
                         top: Px(5.0),
                         bottom: Px(5.0),
                       ),
-                      size: (
-                        width: Px(32.0),
-                        height: Auto,
-                    ),
                     ),
                     text: (
                       sections: [(

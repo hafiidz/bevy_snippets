@@ -1,5 +1,7 @@
+use bevy::asset::ChangeWatcher;
 use bevy::prelude::*;
 use bevy_proto::prelude::*;
+use std::time::Duration;
 
 fn main() {
     // Used when debugging
@@ -8,25 +10,20 @@ fn main() {
 
     App::new()
         // add default bevy plugins with hot-reloading enabled
-        .add_plugins(
-            // setup default bevy plugin config
-            DefaultPlugins
+        .add_plugins((
+            DefaultPlugins.set(AssetPlugin {
                 // Enable hot-reloading of assets:
-                .set(AssetPlugin {
-                    watch_for_changes: true,
-                    ..default()
-                })
-                // prevents blurry sprites when up-scaling
-                .set(ImagePlugin::default_nearest()),
-        )
-        // ProtoPlugin Init
-        .add_plugin(ProtoPlugin::new())
+                watch_for_changes: ChangeWatcher::with_delay(Duration::from_millis(200)),
+                ..default()
+            }),
+            ProtoPlugin::new(),
+        ))
         // ==== Add our own plugin ==== //
         .register_type::<MenuRoot>()
         .init_resource::<IsMenuRootSpawned>()
         // ==== Game logic ==== //
-        .add_startup_systems((setup_camera, load))
-        .add_system(spawn.run_if(prototype_ready(PROTO_ID)))
+        .add_systems(Startup, (setup_camera, load))
+        .add_systems(Update, spawn.run_if(prototype_ready(PROTO_ID)))
         .run();
 }
 
@@ -39,7 +36,7 @@ fn setup_camera(mut commands: Commands) {
 
 const PROTO_ID: &str = "MenuRoot";
 
-#[derive(Component, Schematic, Reflect, FromReflect, Debug)]
+#[derive(Component, Schematic, Reflect, Debug)]
 #[reflect(Schematic)]
 pub struct MenuRoot;
 

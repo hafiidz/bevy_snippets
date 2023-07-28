@@ -6,10 +6,6 @@
       style: (
         flex_direction: Column,
         justify_content: Center,
-        size: (
-          width: Auto,
-          height: Px(512.0),
-        ),
       ),
       background_color: (Rgba(
         red: 0.9,

@@ -4,10 +4,6 @@
     "bevy_snippets::MenuRoot": (),
     "bevy_proto::custom::NodeBundle": (
       style: (
-        size: (
-          width: Percent(100.0),
-          height: Percent(100.0),
-        ),
         justify_content: SpaceBetween,
         flex_direction: Column,
       )
