@@ -110,9 +110,9 @@ fn transition_app_state(
     }
 }
 
-const NORMAL_BUTTON: Color = Color::rgb(0.15, 0.15, 0.15);
-const HOVERED_BUTTON: Color = Color::rgb(0.25, 0.25, 0.25);
-const PRESSED_BUTTON: Color = Color::rgb(0.35, 0.75, 0.35);
+const NORMAL_BUTTON: Color = Color::WHITE;
+const HOVERED_BUTTON: Color = Color::GRAY;
+const PRESSED_BUTTON: Color = Color::GREEN;
 
 fn button_system(
     mut interaction_query: Query<
@@ -134,7 +134,7 @@ fn button_system(
             Interaction::Pressed => {
                 text.sections[0].value = "Press".to_string();
                 *color = PRESSED_BUTTON.into();
-                border_color.0 = Color::RED;
+                border_color.0 = Color::WHITE;
 
                 // toggle state between Game and MainMenu
                 if *app_state.get() == AppState::Game {
@@ -148,7 +148,7 @@ fn button_system(
             Interaction::Hovered => {
                 text.sections[0].value = "Hover".to_string();
                 *color = HOVERED_BUTTON.into();
-                border_color.0 = Color::WHITE;
+                border_color.0 = Color::BLACK;
             }
             Interaction::None => {
                 let value = if *app_state.get() == AppState::Game {
@@ -159,7 +159,7 @@ fn button_system(
                 // text.sections[0].value = "Button".to_string();
                 text.sections[0].value = value.to_owned();
                 *color = NORMAL_BUTTON.into();
-                border_color.0 = Color::BLACK;
+                border_color.0 = Color::WHITE;
             }
         }
     }
