@@ -698,7 +698,9 @@ dependencies = [
 
 [[package]]
 name = "bevy_proto"
-version = "0.10.0"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77427a41f9ebdf3b897749f18c2aceeeafe971205a6364ed94546b4c59563d76"
 dependencies = [
  "anyhow",
  "bevy",
@@ -712,6 +714,8 @@ dependencies = [
 [[package]]
 name = "bevy_proto_backend"
 version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b2790c067841c78c7bb55cc88786eaae918a22667fffadbf52378c9e827d7ef6"
 dependencies = [
  "anyhow",
  "bevy",
@@ -725,7 +729,9 @@ dependencies = [
 
 [[package]]
 name = "bevy_proto_derive"
-version = "0.5.0"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1ef2da41aaa2e12f97f6983333db43444441bd5149c89eb6874cb3ad8afcfe81"
 dependencies = [
  "optional-error",
  "proc-macro-crate",

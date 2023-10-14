@@ -21,9 +21,12 @@ fn main() {
         // ==== Add our own plugin ==== //
         .register_type::<MenuRoot>()
         .init_resource::<IsMenuRootSpawned>()
+        .add_state::<AppState>()
         // ==== Game logic ==== //
         .add_systems(Startup, (setup_camera, load))
         .add_systems(Update, spawn.run_if(prototype_ready(PROTO_ID)))
+        .add_systems(Update, button_system)
+        .add_systems(Update, transition_app_state)
         .run();
 }
 
@@ -73,6 +76,90 @@ fn spawn(
             if proto_asset_event.is_modified(PROTO_ID) {
                 commands.entity(previous.unwrap()).despawn_recursive();
                 is_spawned.value = false;
+            }
+        }
+    }
+}
+
+#[derive(States, Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
+pub enum AppState {
+    #[default]
+    MainMenu,
+    Game,
+}
+
+fn transition_app_state(
+    keyboard_input: Res<Input<KeyCode>>,
+    app_state: Res<State<AppState>>,
+    mut app_state_next_state: ResMut<NextState<AppState>>,
+) {
+    if keyboard_input.just_pressed(KeyCode::G) {
+        if *app_state.get() != AppState::Game {
+            app_state_next_state.set(AppState::Game);
+            dbg!("Entered AppState::Game");
+        } else {
+            dbg!("Already in AppState::Game");
+        }
+    } else if keyboard_input.just_pressed(KeyCode::M) {
+        if *app_state.get() != AppState::MainMenu {
+            app_state_next_state.set(AppState::MainMenu);
+            dbg!("Entered AppState::MainMenu");
+        } else {
+            dbg!("Already in AppState::MainMenu");
+        }
+    }
+}
+
+const NORMAL_BUTTON: Color = Color::rgb(0.15, 0.15, 0.15);
+const HOVERED_BUTTON: Color = Color::rgb(0.25, 0.25, 0.25);
+const PRESSED_BUTTON: Color = Color::rgb(0.35, 0.75, 0.35);
+
+fn button_system(
+    mut interaction_query: Query<
+        (
+            &Interaction,
+            &mut BackgroundColor,
+            &mut BorderColor,
+            &Children,
+        ),
+        (Changed<Interaction>, With<Button>),
+    >,
+    mut text_query: Query<&mut Text>,
+    app_state: Res<State<AppState>>,
+    mut app_state_next_state: ResMut<NextState<AppState>>,
+) {
+    for (interaction, mut color, mut border_color, children) in &mut interaction_query {
+        let mut text = text_query.get_mut(children[0]).unwrap();
+        match *interaction {
+            Interaction::Pressed => {
+                text.sections[0].value = "Press".to_string();
+                *color = PRESSED_BUTTON.into();
+                border_color.0 = Color::RED;
+
+                // toggle state between Game and MainMenu
+                if *app_state.get() == AppState::Game {
+                    app_state_next_state.set(AppState::MainMenu);
+                    dbg!("Move to MainMenu");
+                } else {
+                    app_state_next_state.set(AppState::Game);
+                    dbg!("Move to Game");
+                };
+            }
+            Interaction::Hovered => {
+                text.sections[0].value = "Hover".to_string();
+                *color = HOVERED_BUTTON.into();
+                border_color.0 = Color::WHITE;
+            }
+            Interaction::None => {
+                let value = if *app_state.get() == AppState::Game {
+                    "Game"
+                } else {
+                    "MainMenu"
+                };
+                // text.sections[0].value = "Button".to_string();
+                text.sections[0].value = value.to_owned();
+                *color = NORMAL_BUTTON.into();
+                border_color.0 = Color::BLACK;
             }
         }
     }
